@@ -1,0 +1,17 @@
+fastmcp>=2.13.0
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.5.0
+langchain>=0.1.0
+langgraph>=0.0.30
+streamlit>=1.28.0
+anthropic>=0.25.0
+python-dotenv>=1.0.0
+requests>=2.31.0
+# Error handling and resilience
+tenacity>=8.2.0
+# Testing
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+# HTTP client for MCP
+httpx>=0.24.0
