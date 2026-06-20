@@ -13,7 +13,7 @@ A complete multi-agent AI system for automated loan application analysis using F
 └──────────────────────┬──────────────────────────────────────┘
                        │
                        ▼
-┌─────────────────────────────────────────────────────────────┐
+───────────────────────────────────────────────────────────┐
 │         FastAPI Microservice (Orchestration)               │
 │   - Main /apply endpoint                                   │
 │   - Coordinates all agents                                 │

@@ -332,8 +332,27 @@ elif page == "Compliance Dashboard":
                 st.subheader("📝 Recent Applications")
 
                 if summary['logs']:
+                    # Create a table view for better visibility
+                    applications_data = []
+                    for log in summary['logs']:
+                        applications_data.append({
+                            "Case ID": log.get('case_id', 'N/A'),
+                            "Applicant ID": log.get('applicant_id', 'N/A'),
+                            "Decision": log.get('decision', 'N/A'),
+                            "Risk Level": log.get('risk_level', 'N/A'),
+                            "Status": log.get('status', 'N/A'),
+                            "Timestamp": log.get('timestamp', 'N/A')
+                        })
+
+                    if applications_data:
+                        import pandas as pd
+                        df = pd.DataFrame(applications_data[::-1])  # Reverse to show newest first
+                        st.dataframe(df, use_container_width=True, hide_index=True)
+
+                    st.markdown("---")
+                    st.subheader("📋 Detailed View")
                     for log in reversed(summary['logs'][-10:]):
-                        with st.expander(f"Case: {log.get('case_id', 'N/A')} - {log.get('applicant_id', 'N/A')}"):
+                        with st.expander(f"📌 Case ID: {log.get('case_id', 'N/A')} | Applicant: {log.get('applicant_id', 'N/A')} | {log.get('decision', 'N/A')}"):
                             col1, col2, col3 = st.columns(3)
 
                             with col1:

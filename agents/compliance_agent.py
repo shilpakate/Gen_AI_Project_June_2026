@@ -106,7 +106,7 @@ def create_case_record(applicant_id: str, decision: str, confidence: float, risk
     Returns:
         Case record details
     """
-    case_id = f"CASE-{applicant_id}-{datetime.now().strftime('%Y%m%d')}"
+    case_id = f"CASE-{applicant_id}-{datetime.now().strftime('%Y%m%d%H%M%S')}"
 
     # Determine if case needs manual review
     needs_review = decision == "Review" or confidence < 0.7 or risk_level == "High"
