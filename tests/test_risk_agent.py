@@ -58,8 +58,8 @@ class TestDTICalculation:
         """Test DTI with very high income"""
         result = calculate_debt_to_income_ratio(
             income=500000,
-            existing_liabilities=5000,
-            loan_amount=100000,
+            existing_liabilities=1000,
+            loan_amount=30000,
             tenure_months=60
         )
 
@@ -138,7 +138,7 @@ class TestLoanAmountRisk:
     def test_loan_amount_moderate(self):
         """Test moderate loan-to-income ratio"""
         result = analyze_loan_amount_risk(
-            loan_amount=75000,
+            loan_amount=120000,
             income=50000
         )
 
@@ -313,10 +313,10 @@ class TestRiskIntegration:
 
     def test_full_risk_analysis_strong_applicant(self):
         """Test full risk analysis for strong applicant"""
-        dti = calculate_debt_to_income_ratio(75000, 2000, 50000, 60)
+        dti = calculate_debt_to_income_ratio(75000, 2000, 20000, 60)
         credit_risk = get_credit_risk_level(750)
-        loan_risk = analyze_loan_amount_risk(50000, 75000)
-        anomalies = detect_anomalies(75000, 50000, 2000, 35, 750)
+        loan_risk = analyze_loan_amount_risk(20000, 75000)
+        anomalies = detect_anomalies(75000, 20000, 2000, 35, 750)
         summary = generate_risk_summary(
             dti["dti_ratio"],
             credit_risk,

@@ -39,9 +39,9 @@ class TestWorkflowIntegration:
         result = run_loan_application(
             applicant_id="APP002",
             age=28,
-            annual_income=55000,
+            annual_income=65000,
             credit_score=680,
-            existing_liabilities=3000,
+            existing_liabilities=1500,
             employment_type="Contract",
             employment_years=3,
             loan_amount=45000,

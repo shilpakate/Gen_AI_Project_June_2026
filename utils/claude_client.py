@@ -86,7 +86,7 @@ def generate_explanation(profile: dict, risk: dict, decision: str) -> str:
 
     try:
         message = client.messages.create(
-            model="claude-opus-4-5-20251101-v1:0",
+            model="claude-sonnet-4-6",
             max_tokens=256,
             messages=[
                 {"role": "user", "content": prompt}

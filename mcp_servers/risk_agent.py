@@ -70,9 +70,9 @@ def analyze_loan_amount_risk(loan_amount: float, income: float) -> dict:
     """
     loan_to_income = loan_amount / income if income > 0 else float('inf')
 
-    if loan_to_income <= 2:
+    if loan_to_income < 1.5:
         risk_level = "Low"
-    elif loan_to_income <= 5:
+    elif loan_to_income <= 3:
         risk_level = "Medium"
     else:
         risk_level = "High"
@@ -111,9 +111,9 @@ def detect_anomalies(
     if existing_liabilities > (income / 12) * 0.5:
         anomalies.append("High existing debt relative to income")
 
-    # Check for unusually low credit score
-    if credit_score < 500:
-        anomalies.append("Very low credit score")
+    # Check for low credit score
+    if credit_score < 600:
+        anomalies.append("Low credit score")
 
     # Check for age-related concerns
     if age < 21:
@@ -122,8 +122,12 @@ def detect_anomalies(
         anomalies.append("Applicant age above 75")
 
     # Check for very large loan relative to income
-    if loan_amount > income * 10:
+    if loan_amount > income * 4:
         anomalies.append("Loan amount extremely high relative to income")
+
+    # Check for very low income relative to loan
+    if income < 30000 and loan_amount > income * 2:
+        anomalies.append("Very low income relative to loan amount")
 
     return {
         "anomalies_detected": len(anomalies) > 0,

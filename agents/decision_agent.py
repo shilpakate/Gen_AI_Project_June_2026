@@ -58,6 +58,7 @@ def make_loan_decision(data: DecisionInput) -> dict:
             score += 1
             factors.append("Strong income stability")
         elif data.income_stability_score > 0.4:
+            score += 0.5
             factors.append("Moderate income stability")
         else:
             factors.append("Weak income stability")
@@ -67,24 +68,30 @@ def make_loan_decision(data: DecisionInput) -> dict:
             score += 1
             factors.append("Good credit profile")
         elif data.credit_risk == "Medium":
+            score += 0.5
             factors.append("Fair credit profile")
         else:
             factors.append("Poor credit profile")
 
-        # DTI ratio evaluation (max +1)
+        # DTI ratio evaluation (max +1, penalties for extreme values)
         if data.dti_ratio < 0.4:
             score += 1
             factors.append("Healthy debt-to-income ratio")
         elif data.dti_ratio < 0.5:
+            score += 0.5
             factors.append("Acceptable debt-to-income ratio")
-        else:
+        elif data.dti_ratio < 0.8:
             factors.append("High debt-to-income ratio")
+        else:
+            score -= 2
+            factors.append("Critically high debt-to-income ratio")
 
         # Employment risk evaluation (max +1)
         if data.employment_risk == "Low":
             score += 1
             factors.append("Stable employment")
         elif data.employment_risk == "Medium":
+            score += 0.5
             factors.append("Moderate employment stability")
         else:
             factors.append("Unstable employment")
@@ -94,6 +101,7 @@ def make_loan_decision(data: DecisionInput) -> dict:
             score += 1
             factors.append("Loan amount appropriate for income")
         elif data.loan_to_income <= 5:
+            score += 0.5
             factors.append("Loan amount manageable")
         else:
             factors.append("Loan amount high relative to income")
@@ -140,7 +148,7 @@ def make_loan_decision(data: DecisionInput) -> dict:
             "applicant_id": data.applicant_id,
             "decision": decision,
             "confidence": min(confidence, 1.0),
-            "score": round(score, 2),
+            "score": float(round(score, 2)),
             "factors": factors,
             "explanation": explanation,
             "timestamp": __import__("datetime").datetime.now().isoformat()
